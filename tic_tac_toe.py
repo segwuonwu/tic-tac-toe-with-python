@@ -60,4 +60,26 @@ def player_input():
         else:
             player1 = input("Please select a marker 'O' or 'X':  \n")
 
-player_input()
+#player_input()
+
+# Placing the markers on the board
+def place_marker(board, marker, position):
+    board[position] = marker
+    return board
+
+# Check if the position is empty and place player's marker
+def check_space(board, position):
+    return board[position] == '#'
+
+def player_position(board):
+    position = input("Please select an empty position between 1 and 9 \n")
+    while not check_space(board, int(position)):
+        position = input('This position is not empty. \nPlease try another position between 1 and 9 : \n')
+    return int(position)
+
+
+player1, player2 = player_input()
+position = player_position(board)
+marker = place_marker(board, player1, position)
+print(marker)
+display_board(board)
