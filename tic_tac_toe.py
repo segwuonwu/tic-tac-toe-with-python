@@ -77,6 +77,37 @@ def player_position(board):
         position = input('This position is not empty. \nPlease try another position between 1 and 9 : \n')
     return int(position)
 
+# Check to see if the board is full
+def is_board_full(board):
+    return len([x for x in board if x == '#']) == 1
+
+# Check if the game has been won
+def check_win(board, marker):
+    if board[1] == board[2] == board[3] == marker:
+            return True
+    if board[4] == board[5] == board[6] == marker:
+        return True
+    if board[7] == board[8] == board[9] == marker:
+        return True
+    if board[1] == board[4] == board[7] == marker:
+        return True
+    if board[2] == board[5] == board[8] == marker:
+        return True
+    if board[3] == board[6] == board[9] == marker:
+        return True
+    if board[1] == board[5] == board[9] == marker:
+        return True
+    if board[3] == board[5] == board[7] == marker:
+        return True
+    return False
+
+# Ask player if they want to play again
+def play_again():
+    replay = input("Would you like to play again (y/n) ? \n")
+    if replay.lower() == 'y':
+        return True
+    if replay.lower() == 'n':
+        return False
 
 player1, player2 = player_input()
 position = player_position(board)
