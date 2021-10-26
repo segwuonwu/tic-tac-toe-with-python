@@ -15,8 +15,6 @@ def welcome():
         '''
     )
 
-welcome()
-
 # Create a display board
 def display_board(board):
     blank_board = '''
@@ -109,8 +107,49 @@ def play_again():
     if replay.lower() == 'n':
         return False
 
-player1, player2 = player_input()
-position = player_position(board)
-marker = place_marker(board, player1, position)
-print(marker)
-display_board(board)
+
+# main game engine
+if __name__ == "__main__":
+    welcome()
+    i = 1
+    # Choose your side
+    players = player_input()
+    # Empty board init
+    board = ['#'] * 10
+    while True:
+        # Set the game up here
+        game_on = is_board_full(board)
+        while not game_on:
+            # Player to choose where to put the marker
+            position = player_position(board)
+            # Who's playin ? Choose the marker
+            if i % 2 == 0:
+                marker = players[1]
+            else:
+                marker = players[0]
+            # Play !
+            place_marker(board, marker, position)
+            # Check the board
+            display_board(board)
+            i += 1
+            if(is_board_full(board) == False):
+                if check_win(board, marker):
+                    if marker == players[0]:
+                        print("Player 1 won !")
+                    else:
+                        print("Player 2 won !")
+                    break
+            else:
+                print("It's a tie game !!!")
+                break
+            
+            game_on = is_board_full(board)
+        if not play_again():
+            print("Thanks for playing!!!")
+            break
+        else:
+            i = 1
+            # Choose your side
+            players=player_input()
+            # Empty board init
+            board = ['#'] * 10
